@@ -3,6 +3,18 @@ body {
   font-family: Arial, sans-serif;
   font-size: 1rem;
   margin: 0;
+  padding: 0;
+  background-color: rgb(255, 205, 207);
+  min-height: 100vh;
+}
+
+header {
+  background-color: ghostwhite;
+}
+
+header,
+main {
+  margin: 0;
   padding: 1rem 2rem;
 }
 
@@ -19,15 +31,49 @@ nav a {
   color: black;
 }
 
+nav a:hover {
+  color: rgb(177, 45, 30);
+}
+
 h1 {
   margin: 3rem 0;
 }
 
-h2 {
-  margin-bottom: 1rem;
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
 }
 
-.food-trucks {
+/* Form labels */
+form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  gap: 0.3rem;
+  text-align: left;
+}
+
+/* Form Inputs */
+form input,
+form select {
+  height: 2rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+}
+
+/* Submit button */
+form button {
+  height: 2.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* .food-trucks {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -35,6 +81,7 @@ h2 {
 }
 
 .food-truck {
+  background: ghostwhite;
   border: 1px solid black;
   border-radius: 20px;
   padding: 1rem;
@@ -51,42 +98,9 @@ h2 {
 
 .label {
   font-weight: bold;
-  text-align: left;
 }
 
 .value {
   text-align: right;
   margin-left: 1rem;
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 400px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-/* Group label + input nicely */
-form label {
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  gap: 0.3rem;
-}
-
-/* Inputs + select styling */
-form input,
-form select {
-  height: 2rem;
-  padding: 0.4rem;
-  font-size: 1rem;
-}
-
-/* Submit button */
-form button {
-  height: 2.4rem;
-  font-size: 1rem;
-  cursor: pointer;
-}
+} */
