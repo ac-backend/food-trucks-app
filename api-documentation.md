@@ -6,7 +6,7 @@
 
 ## Overview
 
-| Number |  Assigned to  | Method | Endpoint | Description |
+| Number |  Assignee  | Method | Endpoint | Description |
 | ------ | ------------  | ------ | -------- | ----------- |
 | 1      |               | GET | `/get-all-food-trucks` | Retrieves all food trucks from the database. |
 | 2      | Ainslie       | GET | `/get-food-truck-by-id/:id` | Retrieves one food truck by its id number. |
