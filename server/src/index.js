@@ -30,59 +30,18 @@ async function getAllFoodTrucks() {
 }
 
 // 2. getFoodTruckById(id)
-async function getFoodTruckById(id) {
-  const result = await db.query("SELECT * FROM food_trucks WHERE id = $1", [
-    id,
-  ]);
-  return result.rows[0];
-}
 
 // 3. getVeganFoodTrucks()
-async function getVeganFoodTrucks() {
-  const result = await db.query(
-    "SELECT * FROM food_trucks WHERE has_vegan_options = true",
-  );
-  return result.rows;
-}
 
 // 4. getFoodTrucksByPrice(price)
-async function getFoodTrucksByPrice(price) {
-  const result = await db.query(
-    "SELECT * FROM food_trucks WHERE price_level = $1",
-    [price],
-  );
-  return result.rows;
-}
 
 // 5. getTopRatedFoodTrucks()
-async function getTopRatedFoodTrucks() {
-  const result = await db.query(
-    "SELECT * FROM food_trucks WHERE rating >= 4.5",
-  );
-  return result.rows;
-}
 
 // 6. getFoodTrucksSortedByRating()
-async function getFoodTrucksSortedByRating() {
-  const result = await db.query(
-    "SELECT * FROM food_trucks ORDER BY rating DESC",
-  );
-  return result.rows;
-}
 
 // 7. getFoodTrucksSortedByPrice()
-async function getFoodTrucksSortedByPrice() {
-  const result = await db.query(
-    "SELECT * FROM food_trucks ORDER BY price_level ASC",
-  );
-  return result.rows;
-}
 
 // 8. getFoodTrucksCount()
-async function getFoodTrucksCount() {
-  const result = await db.query("SELECT COUNT(*) FROM food_trucks");
-  return result.rows[0];
-}
 
 // 9. addOneFoodTruck(...)
 async function addOneFoodTruck(
@@ -114,29 +73,10 @@ async function addOneFoodTruck(
 }
 
 // 10. deleteOneFoodTruck(id)
-async function deleteOneFoodTruck(id) {
-  const result = await db.query(
-    "DELETE FROM food_trucks WHERE id = $1 RETURNING *",
-    [id],
-  );
-  return result.rows[0];
-}
 
 // 11. updateFoodTruckLocation(id, newLocation)
-async function updateFoodTruckLocation(id, newLocation) {
-  await db.query(
-    "UPDATE food_trucks SET current_location = $1 WHERE id = $2 RETURNING *",
-    [newLocation, id],
-  );
-}
 
 // 12. updateFoodTruckRating(id, newRating)
-async function updateFoodTruckRating(id, newRating) {
-  await db.query(
-    "UPDATE food_trucks SET rating = $1 WHERE id = $2 RETURNING *",
-    [newRating, id],
-  );
-}
 
 // ---------------------------------
 // API Endpoints
@@ -149,48 +89,18 @@ app.get("/get-all-food-trucks", async (req, res) => {
 });
 
 // 2. GET /get-food-truck-by-id/:id
-app.get("/get-food-truck-by-id/:id", async (req, res) => {
-  const id = req.params.id;
-  const truck = await getFoodTruckById(id);
-  res.json(truck);
-});
 
 // 3. GET /get-vegan-food-trucks
-app.get("/get-vegan-food-trucks", async (req, res) => {
-  const trucks = await getVeganFoodTrucks();
-  res.json(trucks);
-});
 
 // 4. GET /get-food-trucks-by-price/:price
-app.get("/get-food-trucks-by-price/:price", async (req, res) => {
-  const price = parseInt(req.params.price);
-  const trucks = await getFoodTrucksByPrice(price);
-  res.json(trucks);
-});
 
 // 5. GET /get-top-rated-food-trucks
-app.get("/get-top-rated-food-trucks", async (req, res) => {
-  const trucks = await getTopRatedFoodTrucks();
-  res.json(trucks);
-});
 
 // 6. GET /get-food-trucks-sorted-by-rating
-app.get("/get-food-trucks-sorted-by-rating", async (req, res) => {
-  const trucks = await getFoodTrucksSortedByRating();
-  res.json(trucks);
-});
 
 // 7. GET /get-food-trucks-sorted-by-price
-app.get("/get-food-trucks-sorted-by-price", async (req, res) => {
-  const trucks = await getFoodTrucksSortedByPrice();
-  res.json(trucks);
-});
 
 // 8. GET /get-food-trucks-count
-app.get("/get-food-trucks-count", async (req, res) => {
-  const count = await getFoodTrucksCount();
-  res.json(count);
-});
 
 // 9. POST /add-one-food-truck
 app.post("/add-one-food-truck", async (req, res) => {
@@ -218,28 +128,8 @@ app.post("/add-one-food-truck", async (req, res) => {
 });
 
 // 10. POST /delete-one-food-truck/:id
-app.post("/delete-one-food-truck/:id", async (req, res) => {
-  const id = req.params.id;
-
-  const truck = await deleteOneFoodTruck(id);
-
-  res.send(`Success! ${truck.name} was deleted!`);
-});
 
 // 11. POST /update-food-truck-location
-app.post("/update-food-truck-location", async (req, res) => {
-  const { id, newLocation } = req.body;
-
-  await updateFoodTruckLocation(id, newLocation);
-
-  res.send(`Success! The food truck location was updated!`);
-});
 
 // 12. POST /update-food-truck-rating
-app.post("/update-food-truck-rating", async (req, res) => {
-  const { id, newRating } = req.body;
 
-  await updateFoodTruckRating(id, newRating);
-
-  res.send(`Success! The food truck rating was updated!`);
-});
