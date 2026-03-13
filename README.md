@@ -163,6 +163,6 @@ Once you've finished your assigned API endpoint and helper function, gotten it a
 Finished? Try one of these bonus challenges!
 
 1. 🌟 Add a delete button to each food on the Home page
-2. 🌟 Show a "Top Rated" badge on trucks with rating >= 4.5.
-3. 🌟 Add a sort feature on the frontend for price level or rating.
-4. 🌟 Add a search bar to find a food truck by name.
+2. 🌟 Show a "Top Rated" badge on trucks with rating >= 4.5
+3. 🌟 Add a sort feature on the frontend for price level or rating
+4. 🌟 Add a search bar to find a food truck by name
