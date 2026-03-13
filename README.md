@@ -156,6 +156,8 @@ Once you've finished your assigned API endpoint and helper function, gotten it a
 - Render all food truck data on the Home page. Style it as a grid of cards.
 - Display a total count of food trucks at the top of the page.
 
+<img width="1000" alt="Example of Food Trucks App frontend" src="https://github.com/user-attachments/assets/65b6aff0-566c-4e85-b774-e3e4c3b9343e" />
+
 ## Stretch Goals 🌟
 
 Finished? Try one of these bonus challenges!
