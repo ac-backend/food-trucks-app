@@ -204,4 +204,5 @@ Finished? Try one of these bonus challenges!
 2. 🌟 Show a "Top Rated" badge on trucks with rating >= 4.5.
 3. 🌟 Add a sort feature on the frontend for price level or rating.
 4. 🌟 Add a search bar to find a food truck by name.
-5. 🌟 Show the food truck's rating as stars. For example, a rating of 4 would show as ⭐️⭐️⭐️.
+5. 🌟 Show the food truck's rating as stars. For example, a rating of 4 would show as ⭐️⭐️⭐️⭐️.
+6. 🌟 Show the food truck's price level as dollar signs. For example, a price level of 3 would show as $$$.
