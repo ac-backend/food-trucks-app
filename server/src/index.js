@@ -42,7 +42,9 @@ async function getFoodTruckById(id) {
   return result.rows[0];
 }
 
+
 // 3. getVeganFoodTrucks()
+
 
 // 4. getFoodTrucksByPrice(price)
 
@@ -61,7 +63,14 @@ async function getTopRatedFoodTrucks() {
   return result.rows;
 }
 
+
 // 6. getFoodTrucksSortedByRating()
+async function getFoodTrucksSortedByRating() {
+  const result = await db.query(
+    "SELECT * FROM food_trucks ORDER BY rating DESC",
+  );
+  return result.rows;
+}
 
 // 7. getFoodTrucksSortedByPrice()
 
@@ -81,33 +90,7 @@ async function getFoodTrucksCount() {
   return result.rows[0];
 }
 // 9. addOneFoodTruck(name, current_location, daily_special, slogan, has_vegan_options, price_level, rating)
-async function addOneFoodTruck(
-  name,
-  current_location,
-  daily_special,
-  slogan,
-  has_vegan_options,
-  price_level,
-  rating,
-) {
-  const result = await db.query(
-    `INSERT INTO food_trucks
-     (name, current_location, daily_special, slogan, has_vegan_options, price_level, rating)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)
-     RETURNING *`,
-    [
-      name,
-      current_location,
-      daily_special,
-      slogan,
-      has_vegan_options,
-      price_level,
-      rating,
-    ],
-  );
 
-  return result.rows[0];
-}
 
 // 10. deleteOneFoodTruck(id)
 
@@ -144,7 +127,9 @@ async function updateFoodTruckLocation(id, newLocation) {
   return result;
 }
 
+
 // 12. updateFoodTruckRating(id, newRating)
+
 
 // ---------------------------------
 // API Endpoints
@@ -169,7 +154,9 @@ app.get("/get-food-truck-by-id/:id", async (req, res) => {
   res.json(foodTruck);
 });
 
+
 // 3. GET /get-vegan-food-trucks
+
 
 // 4. GET /get-food-trucks-by-price/:price
 
@@ -185,7 +172,12 @@ app.get("/get-top-rated-food-trucks", async (req, res) => {
   res.json(trucks);
 });
 
+
 // 6. GET /get-food-trucks-sorted-by-rating
+app.get("/get-food-trucks-sorted-by-rating", async (req, res) => {
+  const trucks = await getFoodTrucksSortedByRating();
+  res.json(trucks);
+});
 
 // 7. GET /get-food-trucks-sorted-by-price
 
@@ -200,29 +192,7 @@ app.get("/get-food-trucks-count", async (req, res) => {
   res.json(count);
 })
 // 9. POST /add-one-food-truck
-app.post("/add-one-food-truck", async (req, res) => {
-  const {
-    name,
-    current_location,
-    daily_special,
-    slogan,
-    has_vegan_options,
-    price_level,
-    rating,
-  } = req.body;
 
-  const truck = await addOneFoodTruck(
-    name,
-    current_location,
-    daily_special,
-    slogan,
-    has_vegan_options,
-    price_level,
-    rating,
-  );
-
-  res.send(`Success! ${truck.name} was added!`);
-});
 
 // 10. POST /delete-one-food-truck/:id
 
@@ -255,7 +225,6 @@ app.post("/update-food-truck-location", async (req, res) => {
   res.send("Success! The food truck location was updated!");
 });
 
-// 12. POST /update-food-truck-rating
 
 // ✨💖🐼 Secret message from Nicole 🐼💖✨
 // Why did the programmer quit their job? Because they didn't get arrays :) *
