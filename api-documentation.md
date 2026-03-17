@@ -33,7 +33,7 @@ CREATE TABLE food_trucks (
     daily_special VARCHAR,
     slogan VARCHAR,
     has_vegan_options BOOLEAN DEFAULT false,
-    price_level INTEGER DEFAULT 2 CHECK (price_level BETWEEN 1 AND 4),
+    price_level INTEGER DEFAULT 2 CHECK (price_level BETWEEN 1 AND 5),
     rating DECIMAL(2,1) DEFAULT 4.0 CHECK (rating BETWEEN 0 AND 5)
 );
 ```
