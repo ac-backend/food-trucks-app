@@ -42,21 +42,28 @@ async function getFoodTruckById(id) {
   return result.rows[0];
 }
 
-// 3. getVeganFoodTrucks()
+// ✅ 3. getVeganFoodTrucks()
+async function getVeganFoodTrucks() {
+  const result = await db.query(
+    "SELECT id, name, has_vegan_options FROM food_trucks WHERE has_vegan_options = true"
+  );
+  return result.rows;
+}
 
 // 4. getFoodTrucksByPrice(price)
 
 async function getFoodTruckByPrice(price) {
   const result = await db.query(
-    "SELECT * FROM food_trucks WHERE price_level = $1", [price]
+    "SELECT * FROM food_trucks WHERE price_level = $1",
+    [price]
   );
   return result.rows;
-   }
+}
 
 // 5. getTopRatedFoodTrucks()
 async function getTopRatedFoodTrucks() {
   const result = await db.query(
-    "SELECT * FROM food_trucks WHERE rating >= 4.5",
+    "SELECT * FROM food_trucks WHERE rating >= 4.5"
   );
   return result.rows;
 }
@@ -67,7 +74,7 @@ async function getTopRatedFoodTrucks() {
 
 async function sortedByPrice() {
   const result = await db.query(
-    "SELECT name, id, price_level FROM food_trucks ORDER BY price_level DESC",
+    "SELECT name, id, price_level FROM food_trucks ORDER BY price_level DESC"
   );
   console.log(result.rows);
   return result.rows;
@@ -77,7 +84,7 @@ async function sortedByPrice() {
 
 // 8. getFoodTrucksCount()
 async function getFoodTrucksCount() {
-  const result = await db.query("SELECT COUNT(*) FROM food_trucks")
+  const result = await db.query("SELECT COUNT(*) FROM food_trucks");
   return result.rows[0];
 }
 // 9. addOneFoodTruck(name, current_location, daily_special, slogan, has_vegan_options, price_level, rating)
@@ -88,7 +95,7 @@ async function addOneFoodTruck(
   slogan,
   has_vegan_options,
   price_level,
-  rating,
+  rating
 ) {
   const result = await db.query(
     `INSERT INTO food_trucks
@@ -103,7 +110,7 @@ async function addOneFoodTruck(
       has_vegan_options,
       price_level,
       rating,
-    ],
+    ]
   );
 
   return result.rows[0];
@@ -116,7 +123,7 @@ async function deleteOneFoodTruck(id) {
   // '$1' is a dynamic value loaded with the value of the first item in our array, [id].
   const truckName = await db.query(
     `SELECT name FROM food_trucks WHERE id = $1`,
-    [id],
+    [id]
   );
 
   // Small error handling in case the truck has either already been deleted or did not exist in the first place.
@@ -139,7 +146,7 @@ async function deleteOneFoodTruck(id) {
 async function updateFoodTruckLocation(id, newLocation) {
   const result = await db.query(
     "UPDATE food_trucks SET current_location = $1 WHERE id = $2",
-    [newLocation, id],
+    [newLocation, id]
   );
   return result;
 }
@@ -169,7 +176,11 @@ app.get("/get-food-truck-by-id/:id", async (req, res) => {
   res.json(foodTruck);
 });
 
-// 3. GET /get-vegan-food-trucks
+// ✅ 3. GET /get-vegan-food-trucks
+app.get("/get-vegan-food-trucks", async (req, res) => {
+  const trucks = await getVeganFoodTrucks();
+  res.json(trucks);
+});
 
 // 4. GET /get-food-trucks-by-price/:price
 
@@ -196,9 +207,10 @@ app.get("/get-food-trucks-sorted-by-price", async (req, res) => {
 
 // 8. GET /get-food-trucks-count
 app.get("/get-food-trucks-count", async (req, res) => {
-  const count = await getFoodTrucksCount()
+  const count = await getFoodTrucksCount();
   res.json(count);
-})
+});
+
 // 9. POST /add-one-food-truck
 app.post("/add-one-food-truck", async (req, res) => {
   const {
@@ -218,7 +230,7 @@ app.post("/add-one-food-truck", async (req, res) => {
     slogan,
     has_vegan_options,
     price_level,
-    rating,
+    rating
   );
 
   res.send(`Success! ${truck.name} was added!`);
