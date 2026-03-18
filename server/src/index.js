@@ -146,6 +146,40 @@ async function updateFoodTruckLocation(id, newLocation) {
 
 // 12. updateFoodTruckRating(id, newRating)
 
+//  This async function updates the rating of the food truck
+// we use a async function because it returns a promise automatically
+// and allowsmus to use await inside the function
+async function updateFoodTruckRating(id, newRating) {
+
+  //  This is a variable called const.
+  // await pauses execution until the database finishes updating.
+  //db.query(...) sends an SQL UPDATE command to your database.
+  const result = await db.query(
+    // this is an SQL command that updates the Food_Trucks table 
+    // and uses SET RATING  to  update the rating column with the new updated rating 
+    // for the row where id matches -> $2.
+    // $1 -> gets replaced with newRating, and  $2 -> gets replaced with id
+    "UPDATE food_trucks SET rating  = $1 WHERE id = $2",
+    //  newRating and id are parameters for receiving input 
+    [newRating, id],
+  );
+
+  // result is an object returned by the database driver. (returned in the form of anovbject)
+  // This Return the query results
+  return result;
+
+  }
+
+  // NOTE:
+  // return result.rows[0] --->  would return the updated food truck object 
+  // if we use the word "returning" at the end of the SQL query above 
+  // "UPDATE food_trucks SET rating = $1 WHERE id = $2 RETURNING *"
+
+  // NOTE: 
+  //   We could also add a TRY Catch Error Handling to handle errors
+ 
+
+
 // ---------------------------------
 // API Endpoints
 // ---------------------------------
@@ -256,6 +290,33 @@ app.post("/update-food-truck-location", async (req, res) => {
 });
 
 // 12. POST /update-food-truck-rating
+// app.post defines a POST endpoint / 
+// req → contains incoming data (such as parameters)
+// res → used to send a response back
+ app.post("/update-food-truck-rating", async (req, res) => {
+
+  // Get data sent from the client 
+  // req.body holds JSON sent by the client
+  // it pulls out  id = which row to update AND newRating = new value
+  const id = req.body.id;
+  const newRating = req.body.newRating;
+
+  // Call your database function to update the rating, This runs the helper function
+  // await makes sure the database is finish running first 
+  await updateFoodTruckRating(id, newRating);
+
+  // Send a "Text" response back to the client
+  res.send("Success! The food truck rating was updated!");
+});
+
+//  NOTE: We can add Try/Catch error handling 
+// so if the database fails , error handling can help prevent server from crashing
+
+
+
+// ------------------------------------------------------------------
+
+
 
 // ✨💖🐼 Secret message from Nicole 🐼💖✨
 // Why did the programmer quit their job? Because they didn't get arrays :) *
